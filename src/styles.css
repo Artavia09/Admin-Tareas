@@ -1,0 +1,99 @@
+:root{
+  --bg1:#0b0f11; --bg2:#0d1f16; --portal1:#e0ffb1; --portal2:#4cff6f; --portal3:#0b5825;
+  --txt:#e6ffe3; --muted:#a8cfa9; --pink:#ff4df5; --blue:#47c7ff; --danger:#ff6b6b;
+  --card: rgba(255,255,255,0.06);
+}
+*{ box-sizing:border-box }
+html,body,#root{ height:100% }
+body{
+  margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  color:var(--txt);
+  background: radial-gradient(1200px 800px at 100% -20%, #122, transparent 60%),
+              radial-gradient(1000px 800px at 0% 120%, #021, transparent 55%),
+              linear-gradient(135deg, var(--bg1), var(--bg2));
+  overflow-x:hidden;
+  animation:bgShift 30s linear infinite;
+}
+@keyframes bgShift { to { background-position: 200% 0, -200% 0, 0 0; } }
+
+.container{ max-width:900px; margin:0 auto; padding:32px; }
+.header{ text-align:center; margin-bottom:24px; }
+.neon{
+  font-size: clamp(30px, 6vw, 64px);
+  text-shadow: 0 0 6px var(--portal2), 0 0 24px var(--portal2), 0 0 48px var(--portal3);
+  letter-spacing: 2px;
+  margin: 0;
+  animation: float 5s ease-in-out infinite;
+}
+@keyframes float{ 50%{ transform:translateY(-6px) rotate(-0.5deg) } }
+.subtitle{ color:var(--muted); margin-top:6px }
+
+.panel{
+  display:flex; gap:12px; align-items:center; background:var(--card);
+  border:1px solid rgba(255,255,255,.1); padding:14px 16px; border-radius:16px;
+  box-shadow: 0 10px 30px rgba(76,255,111,.08), inset 0 0 40px rgba(12,100,40,.15);
+  backdrop-filter: blur(6px);
+}
+.portal-card{
+  position:relative;
+  overflow:hidden;
+}
+.portal-card::before{
+  content:''; position:absolute; inset:-120%; margin:auto; width:260%; height:260%;
+  background: conic-gradient(from 180deg, var(--portal1), var(--portal2), var(--portal3), var(--portal2), var(--portal1));
+  animation: spin 10s linear infinite;
+  filter: blur(40px) saturate(140%);
+  z-index:0; opacity:.2;
+}
+@keyframes spin{ to{ transform:rotate(360deg) } }
+.portal-card > *{ position:relative; z-index:1 }
+
+.input{
+  flex:1; background: #06140a; color:var(--txt); border:1px solid #1c3; border-radius:10px; 
+  padding:12px 14px; outline:none; font-size:16px; transition: transform .15s ease;
+}
+.input:focus{ box-shadow: 0 0 0 3px rgba(76,255,111,.25); transform: translateY(-1px); }
+
+.btn{
+  border:0; padding:12px 18px; border-radius:12px; font-weight:700; cursor:pointer;
+  background: linear-gradient(135deg, var(--portal2), var(--portal3));
+  color:#00250e; text-shadow: 0 1px 0 rgba(255,255,255,.2);
+  box-shadow: 0 10px 20px rgba(76,255,111,.25);
+  transition: transform .15s ease, filter .2s ease;
+}
+.btn:hover{ transform: translateY(-2px); filter: brightness(1.1); }
+
+.stats{
+  display:flex; gap:12px; margin:14px 0 10px; font-weight:600; color:#b8ffd1;
+  padding: 8px 12px; background: rgba(14, 60, 30, .5); border:1px solid #1c3; border-radius: 12px;
+}
+.portal-edges{ box-shadow: inset 0 0 30px rgba(100,255,150,.12) }
+
+.muted{ color:var(--muted) }
+.empty{
+  padding:20px; text-align:center; color:#cfe; opacity:.9; border:1px dashed #357;
+  background: rgba(0, 20, 30, .35); border-radius:12px; margin-top:8px;
+}
+
+.list{ list-style:none; padding:0; margin:16px 0; display:grid; gap:10px; }
+.item{
+  display:grid; grid-template-columns: 40px 1fr 40px 40px; align-items:center;
+  gap:10px; padding:12px; border:1px solid rgba(255,255,255,.1); border-radius:14px;
+  background: rgba(0, 30, 20, .35);
+  transition: transform .2s ease, background .2s ease;
+}
+.item:hover{ transform: translateY(-1px) scale(1.01); background: rgba(0, 40, 22, .5); }
+.item.done .title{ text-decoration: line-through; opacity:.7 }
+
+.check{ width:22px; height:22px; cursor:pointer; }
+.title{ overflow-wrap: anywhere; }
+.icon{
+  border:0; border-radius:10px; padding:8px; cursor:pointer; filter: drop-shadow(0 6px 10px rgba(0,0,0,.2));
+  background: rgba(255,255,255,.08);
+  transition: transform .1s ease, background .2s ease;
+}
+.icon:hover{ transform: translateY(-2px) }
+.icon.primary{ background: linear-gradient(180deg, var(--blue), #0a3d4e) }
+.icon.danger{ background: linear-gradient(180deg, var(--danger), #4d0a0a) }
+
+.footer{ margin-top: 22px; color:#9cc; text-align:center; font-size: 12px; opacity:.8 }
